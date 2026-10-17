@@ -1,0 +1,15 @@
+name: validate skills
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: skills CLI must discover the sn1per skill
+        run: |
+          npx --yes skills add . --list | tee /tmp/list.txt
+          grep -qi 'sn1per' /tmp/list.txt
